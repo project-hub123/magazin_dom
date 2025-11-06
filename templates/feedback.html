@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Гостевая книга — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}">Контакты</a>
+                <a href="{{ url_for('news') }}">Новости</a>
+                <a href="{{ url_for('feedback') }}" class="active">Гостевая</a>
+                <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container" style="max-width:800px; margin:0 auto;">
+            <h2>Гостевая книга</h2>
+            <form method="post" action="{{ url_for('feedback') }}" style="background:#fff; border-radius:14px; box-shadow:0 1px 6px rgba(0,0,0,0.07); padding:22px 24px; margin-bottom:36px; display:flex; flex-direction:column; gap:18px;">
+                <label>
+                    Ваше имя:<br>
+                    <input type="text" name="name" required style="width:100%;max-width:320px;">
+                </label>
+                <label>
+                    Сообщение:<br>
+                    <textarea name="message" rows="3" required style="width:100%;max-width:480px;"></textarea>
+                </label>
+                <button type="submit" class="btn" style="max-width:180px;">Оставить сообщение</button>
+            </form>
+            <h3>Сообщения посетителей</h3>
+            {% if messages %}
+                <div style="margin-top:10px;">
+                    {% for msg in messages|reverse %}
+                        <div style="margin-bottom:20px; padding:14px 18px; background:#f9f9f9; border-radius:11px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                            <b>{{ msg.name }}</b><br>
+                            <span>{{ msg.message }}</span>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p style="margin-top:14px;">Сообщений пока нет — будьте первым!</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

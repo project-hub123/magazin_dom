@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+<nav>
+    <a href="{{ url_for('index') }}">Главная</a>
+    <a href="{{ url_for('catalog') }}">Каталог</a>
+    <a href="{{ url_for('promo') }}">Акции</a>
+    <a href="{{ url_for('about') }}">О компании</a>
+    <a href="{{ url_for('contacts') }}">Контакты</a>
+    <a href="{{ url_for('news') }}">Новости</a>
+    <a href="{{ url_for('feedback') }}">Гостевая</a>
+    <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+</nav>
+        <form method="post" action="{{ url_for('search') }}" style="display:inline-block; margin-left:24px;">
+            <input type="text" name="query" placeholder="Поиск по сайту" required style="padding:3px 8px; border-radius:5px; border:1px solid #ccc;">
+            <button type="submit" style="padding:3px 14px; border-radius:5px; border:1px solid #888; background:#f2f2f2;">Найти</button>
+        </form>
+        <div class="auth-panel" style="margin: 10px 0 0 0;">
+        {% if session.get("username") %}
+            <span>Здравствуйте, {{ session.get("username") }}!</span>
+            <a href="{{ url_for('logout') }}">Выйти</a>
+            {% if session.get("role") == "admin" %}
+                <a href="{{ url_for('admin_panel') }}">Админ-панель</a>
+            {% endif %}
+        {% else %}
+            <a href="{{ url_for('login') }}">Войти</a>
+            <a href="{{ url_for('register') }}">Регистрация</a>
+        {% endif %}
+        </div>
+
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="main-banner">
+            <h2>Добро пожаловать!</h2>
+            <p>У нас вы найдете всё для создания уюта и комфорта в вашем доме: мебель, текстиль, аксессуары, товары для кухни, ремонта и многое другое.</p>
+            <a href="{{ url_for('catalog') }}" class="main-btn">Перейти в каталог</a>
+        </section>
+        <section class="features">
+            <h3>Почему выбирают нас:</h3>
+            <ul>
+                <li>Широкий ассортимент товаров для дома</li>
+                <li>Удобная и быстрая доставка</li>
+                <li>Профессиональные консультации и поддержка</li>
+                <li>Актуальные акции и специальные предложения</li>
+            </ul>
+        </section>
+    </main>
+<section class="banners">
+    <div class="banner">
+        <img src="{{ url_for('static', filename='img/banner1.jpg') }}" alt="Большая скидка на мебель!">
+        <div class="banner-text">
+            <h2>Осенние скидки на всё!</h2>
+            <p>Скидки до 30% на популярные коллекции мебели. Только в октябре!</p>
+            <a href="{{ url_for('promo') }}" class="btn">Подробнее</a>
+        </div>
+    </div>
+    <div class="banner">
+        <img src="{{ url_for('static', filename='img/banner2.jpg') }}" alt="Новая коллекция">
+        <div class="banner-text">
+            <h2>Новая коллекция 2025</h2>
+            <p>Модульные кухни и гостиные — стиль и качество для вашего дома.</p>
+            <a href="{{ url_for('catalog') }}" class="btn">В каталог</a>
+        </div>
+    </div>
+</section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

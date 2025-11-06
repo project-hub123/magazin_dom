@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Акции и скидки — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}" class="active">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}">Контакты</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="promo" style="max-width: 800px; margin: 36px auto 50px auto; background: #fff; border-radius: 16px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); padding: 34px 28px;">
+            <h2>Акции и скидки</h2>
+            <div class="promo-list">
+                <div class="promo-item" style="margin-bottom:28px;">
+                    <h3>Скидка 15% на всё для новой квартиры</h3>
+                    <p>С 1 по 30 ноября получите скидку 15% на мебель, текстиль и декор при покупке от 5 000 руб. Акция действует во всех магазинах сети и онлайн.</p>
+                </div>
+                <div class="promo-item" style="margin-bottom:28px;">
+                    <h3>Подарки к каждому заказу от 10 000 руб.</h3>
+                    <p>Совершите покупку на сумму от 10 000 руб. и получите стильный плед в подарок! Количество подарков ограничено.</p>
+                </div>
+                <div class="promo-item">
+                    <h3>Специальные предложения для постоянных клиентов</h3>
+                    <p>Участвуйте в нашей программе лояльности — получайте баллы за покупки и обменивайте их на скидки и ценные призы.</p>
+                </div>
+            </div>
+            <p style="margin-top:24px;">
+                Следите за новыми акциями в наших социальных сетях и на главной странице сайта!
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

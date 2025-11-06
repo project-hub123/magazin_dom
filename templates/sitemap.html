@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Карта сайта</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}">Контакты</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="sitemap" style="max-width:700px;margin:36px auto 50px auto;background:#fff;border-radius:16px;box-shadow:0 1px 8px rgba(0,0,0,0.06);padding:34px 28px;">
+            <h2>Карта сайта</h2>
+            <ul>
+                <li><a href="{{ url_for('index') }}">Главная страница</a></li>
+                <li><a href="{{ url_for('catalog') }}">Каталог товаров</a></li>
+                <li><a href="{{ url_for('promo') }}">Акции и скидки</a></li>
+                <li><a href="{{ url_for('about') }}">О компании</a></li>
+                <li><a href="{{ url_for('contacts') }}">Контакты</a></li>
+                <li><a href="{{ url_for('product', product_id=1) }}">Пример карточки товара</a></li>
+                <li>Страница ошибки 404 (отображается при переходе по несуществующему адресу)</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

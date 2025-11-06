@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Страница не найдена — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+    <style>
+        .not-found {
+            text-align: center;
+            padding: 60px 20px 100px 20px;
+        }
+        .not-found h1 {
+            font-size: 5rem;
+            margin-bottom: 0.2em;
+        }
+        .not-found p {
+            font-size: 1.3rem;
+            margin-bottom: 1.5em;
+        }
+        .not-found a.btn {
+            padding: 0.7em 2em;
+            font-size: 1.1em;
+            border-radius: 6px;
+            text-decoration: none;
+            background: #3971c5;
+            color: #fff;
+            transition: background .2s;
+            display: inline-block;
+        }
+        .not-found a.btn:hover {
+            background: #25477c;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="not-found">
+            <h1>404</h1>
+            <p>Извините, такой страницы не существует.<br>Возможно, она была удалена или вы ошиблись адресом.</p>
+            <a href="{{ url_for('index') }}" class="btn">На главную</a>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

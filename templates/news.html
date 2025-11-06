@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Новости — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}">Контакты</a>
+                <a href="{{ url_for('news') }}" class="active">Новости</a>
+                <a href="{{ url_for('feedback') }}">Гостевая</a>
+                <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Новости</h2>
+            <section class="news-list">
+                {% if news_list %}
+                    {% for news in news_list %}
+                        <article class="news-item" style="margin-bottom:28px; background:#fff; border-radius:14px; box-shadow:0 1px 6px rgba(0,0,0,0.07); padding:22px 24px;">
+                            <div style="font-size:1.2em; font-weight:600;">{{ news.title }}</div>
+                            <div style="color:#6c7a89; font-size:0.98em; margin-bottom:10px;">{{ news.date }}</div>
+                            <div>{{ news.text }}</div>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <p>Новостей пока нет.</p>
+                {% endif %}
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

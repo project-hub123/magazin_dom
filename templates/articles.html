@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Статьи — {{ section }}</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}">Контакты</a>
+                <a href="{{ url_for('news') }}">Новости</a>
+                <a href="{{ url_for('feedback') }}">Гостевая</a>
+                <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+                <a href="{{ url_for('articles', section='catalog') }}">Статьи (Каталог)</a>
+                <a href="{{ url_for('articles', section='promo') }}">Статьи (Акции)</a>
+                <a href="{{ url_for('articles', section='about') }}">Статьи (О компании)</a>
+                <a href="{{ url_for('articles', section='contacts') }}">Статьи (Контакты)</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h2>Статьи раздела: 
+                {% if section == 'catalog' %}Каталог{% elif section == 'promo' %}Акции{% elif section == 'about' %}О компании{% elif section == 'contacts' %}Контакты{% else %}{{ section }}{% endif %}
+            </h2>
+            <div class="articles-list">
+                {% for article in articles_list %}
+                <article class="article-block">
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.text }}</p>
+                </article>
+                {% endfor %}
+            </div>
+            <div class="nav-links">
+                <p>Перейти к статьям других разделов:</p>
+                <a href="{{ url_for('articles', section='catalog') }}">Каталог</a> |
+                <a href="{{ url_for('articles', section='promo') }}">Акции</a> |
+                <a href="{{ url_for('articles', section='about') }}">О компании</a> |
+                <a href="{{ url_for('articles', section='contacts') }}">Контакты</a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

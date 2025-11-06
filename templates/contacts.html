@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Контакты — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+                <a href="{{ url_for('promo') }}">Акции</a>
+                <a href="{{ url_for('about') }}">О компании</a>
+                <a href="{{ url_for('contacts') }}" class="active">Контакты</a>
+                <a href="{{ url_for('news') }}">Новости</a>
+                <a href="{{ url_for('feedback') }}">Гостевая</a>
+                <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="contacts" style="max-width: 700px; margin: 36px auto 50px auto; background: #fff; border-radius: 16px; box-shadow: 0 1px 8px rgba(0,0,0,0.06); padding: 34px 28px;">
+            <h2>Контакты</h2>
+            <p>
+                <strong>Единый центр поддержки клиентов:</strong><br>
+                Телефон: <a href="tel:+78001234567">8&nbsp;800&nbsp;123‑45‑67</a><br>
+                Электронная почта: <a href="mailto:info@magazin-dom.ru">info@magazin-dom.ru</a>
+            </p>
+            <p>
+                <strong>Юридический адрес:</strong><br>
+                123456, г. Москва, ул. Примерная, д. 12, оф. 34
+            </p>
+            <p>
+                <strong>Часы работы:</strong><br>
+                Пн–Пт: 09:00 – 20:00<br>
+                Сб–Вс: 10:00 – 18:00
+            </p>
+            <p>
+                <strong>Социальные сети:</strong><br>
+                <a href="#">ВКонтакте</a> | <a href="#">Telegram</a> | <a href="#">Instagram</a>
+            </p>
+            <p>
+                Вы также можете воспользоваться формой обратной связи на сайте или посетить любой из наших магазинов.
+            </p>
+            <hr style="margin: 32px 0 16px 0;">
+            <h3>Форма обратной связи</h3>
+            {% if sent %}
+                <div style="background:#e0f7e0; padding:12px 20px; border-radius:7px; color:#25783c; margin-bottom:12px;">Ваше сообщение отправлено! Спасибо за обращение.</div>
+            {% endif %}
+            <form method="post" action="{{ url_for('contacts') }}" style="display:flex; flex-direction:column; gap:16px;">
+                <label>
+                    Ваше имя:<br>
+                    <input type="text" name="name" required style="width:100%;max-width:340px;">
+                </label>
+                <label>
+                    Электронная почта:<br>
+                    <input type="email" name="email" required style="width:100%;max-width:340px;">
+                </label>
+                <label>
+                    Сообщение:<br>
+                    <textarea name="message" rows="4" required style="width:100%;max-width:540px;"></textarea>
+                </label>
+                <button type="submit" class="btn" style="max-width:220px;">Отправить сообщение</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

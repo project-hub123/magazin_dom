@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Товар — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Сеть магазинов товаров для дома</h1>
+            <nav>
+                <a href="{{ url_for('index') }}">Главная</a>
+                <a href="{{ url_for('catalog') }}">Каталог</a>
+            </nav>
+            <div class="theme-switch">
+                {% if style == "accessible" %}
+                    <a href="{{ url_for('set_style', theme='default') }}" class="btn">Стандартная версия</a>
+                {% else %}
+                    <a href="{{ url_for('set_style', theme='accessible') }}" class="btn">Версия для слабовидящих</a>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="product-detail">
+            <div class="product-image">
+                {% if product_id == 1 %}
+                    <img src="{{ url_for('static', filename='img/sofa.jpg') }}" alt="Диван 'Комфорт'">
+                {% elif product_id == 2 %}
+                    <img src="{{ url_for('static', filename='img/lamp.jpg') }}" alt="Настольная лампа">
+                {% elif product_id == 3 %}
+                    <img src="{{ url_for('static', filename='img/blanket.jpg') }}" alt="Плед 'Уют'">
+                {% else %}
+                    <img src="{{ url_for('static', filename='img/placeholder.png') }}" alt="Товар">
+                {% endif %}
+            </div>
+            <div class="product-info">
+                {% if product_id == 1 %}
+                    <h2>Диван "Комфорт"</h2>
+                    <p>Мягкий трехместный диван для гостиной, выполнен из высококачественных материалов. Идеально подойдет для создания уюта в вашем доме.</p>
+                    <span class="price">22 990 руб.</span>
+                {% elif product_id == 2 %}
+                    <h2>Настольная лампа</h2>
+                    <p>Современная настольная лампа с регулировкой яркости. Отлично впишется в любой интерьер и обеспечит комфортное освещение для работы и чтения.</p>
+                    <span class="price">1 490 руб.</span>
+                {% elif product_id == 3 %}
+                    <h2>Плед "Уют"</h2>
+                    <p>Мягкий и тёплый плед из микрофибры, размер 180×200 см. Подходит для уютных вечеров дома или в качестве стильного подарка.</p>
+                    <span class="price">1 190 руб.</span>
+                {% else %}
+                    <h2>Товар</h2>
+                    <p>Описание товара будет добавлено позже.</p>
+                    <span class="price">—</span>
+                {% endif %}
+                <div class="product-actions">
+                    <a href="#" class="btn">Добавить в корзину</a>
+                    <a href="{{ url_for('catalog') }}" class="btn btn-back">Назад в каталог</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Сеть магазинов товаров для дома. Все права защищены.</p>
+            <a href="{{ url_for('sitemap') }}">Карта сайта</a>
+        </div>
+    </footer>
+</body>
+</html>

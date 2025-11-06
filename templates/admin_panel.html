@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Админ-панель — Сеть магазинов товаров для дома</title>
+    {% if style == "accessible" %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/accessible.css') }}">
+    {% else %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% endif %}
+</head>
+<body>
+<header>
+    <div class="container">
+        <h1>Админ-панель</h1>
+        <nav>
+            <a href="{{ url_for('index') }}">На сайт</a>
+            <a href="{{ url_for('logout') }}">Выйти</a>
+        </nav>
+    </div>
+</header>
+<main>
+    <div class="container" style="max-width:820px; margin:0 auto;">
+        <h2>Список пользователей</h2>
+        <table style="width:100%; background:#fff; border-radius:10px; box-shadow:0 1px 6px rgba(0,0,0,0.07); padding:10px 0; margin-bottom:32px;">
+            <tr>
+                <th style="padding:8px 6px;">Логин</th>
+                <th style="padding:8px 6px;">Роль</th>
+            </tr>
+            {% for login, u in users.items() %}
+                <tr>
+                    <td style="padding:8px 6px;">{{ login }}</td>
+                    <td style="padding:8px 6px;">{{ u.role }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+
+        <h3>Создать нового пользователя</h3>
+        <form method="post" action="{{ url_for('admin_panel') }}" style="display:flex; gap:20px; flex-wrap:wrap; align-items:center; margin-bottom:28px; background:#f7f7f7; padding:18px 14px; border-radius:9px;">
+            <label>
+                Логин:<br>
+                <input type="text" name="new_username" required>
+            </label>
+            <label>
+                Пароль:<br>
+                <input type="password" name="new_password" required>
+            </label>
+            <label>
+                Роль:<br>
+                <select name="new_role">
+                    <option value="user">user</option>
+                    <option value="admin">admin</option>
+                </select>
+            </label>
+            <button type="submit" class="btn">Создать</button>
+        </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div style="margin:8px 0; color:#d00; font-weight:500;">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <h2>Сообщения из гостевой книги</h2>
+        {% if feedback_messages %}
+            <div style="margin-top:12px;">
+                {% for msg in feedback_messages|reverse %}
+                    <div style="margin-bottom:18px; padding:14px 18px; background:#f9f9f9; border-radius:11px; box-shadow:0 1px 3px rgba(0,0,0,0.03);">
+                        <b>{{ msg.name }}</b><br>
+                        <span>{{ msg.message }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p style="margin-top:14px;">Сообщений пока нет.</p>
+        {% endif %}
+    </div>
+</main>
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Сеть магазинов товаров для дома.</p>
+    </div>
+</footer>
+</body>
+</html>
